@@ -4,6 +4,7 @@ import express from 'express';
 import 'express-async-errors';
 import * as Sentry from '@sentry/node';
 import Youch from 'youch';
+import cors from 'cors';
 import { resolve } from 'path';
 import routes from './routes';
 import sentryConfig from './config/sentry';
@@ -17,6 +18,7 @@ class App {
     Sentry.init(sentryConfig);
 
     this.server.use(Sentry.Handlers.requestHandler());
+    this.server.use(cors());
     this.middlewares();
     this.routes();
     this.exceptionHandler();
